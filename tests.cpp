@@ -58,7 +58,57 @@ TEST(Account, TestMethods){
       test_account.Unlock();
 }
 
-TEST(Transaction, TestMethods){
-      MockTransaction test_trans;
+TEST(Account, UsualWork){
+      Account test(513'680, 500'000);
+
+      EXPECT_EQ(test.id(), 513'680);
+      EXPECT_NE(test.id(), 80'986);
+      EXPECT_EQ(test.GetBalance(), 500'000);
+
+      test.Lock();
+      test.ChangeBalance(200'000);
+
+      EXPECT_EQ(test.GetBalance(), 700'000);
+
+      test.Unlock();
+
+      EXPECT_ANY_THROW(test.ChangeBalance(130'000));
+      EXPECT_EQ(test.GetBalance(), 700'000);
+      
+      EXPECT_NO_THROW(test.Lock());
+      EXPECT_ANY_THROW(test.Lock());
 }
 
+TEST(Transaction, UsualWork){
+      Account bank(111'996, 1'000'000);
+      Account user(55'984, 13'000);
+      Transaction test_trans; 
+
+      EXPECT_EQ(test_trans.fee(), 1);     
+      test_trans.set_fee(1000);
+      EXPECT_EQ(test_trans.fee(), 1000);
+
+      EXPECT_TRUE(test_trans.Make(bank, user, 10'000));
+      EXPECT_EQ(bank.GetBalance(), 989'000);
+      EXPECT_EQ(user.GetBalance(), 23'000);
+}
+
+TEST(Transaction, Exceptions){
+      Account user_from(876, 9'000);
+      Account user_to(478, 1'000);
+      Transaction test_trans;
+
+      EXPECT_THROW(test_trans.Make(user_from, user_from, 7'000), std::logic_error);
+      EXPECT_THROW(test_trans.Make(user_from, user_to, -850), std::invalid_argument);
+      EXPECT_THROW(test_trans.Make(user_from, user_to, 50), std::logic_error);
+
+      test_trans.set_fee(2'000);
+      EXPECT_EQ(test_trans.fee(), 2'000);
+      EXPECT_FALSE(test_trans.Make(user_from, user_to, 2'500));
+      EXPECT_EQ(user_from.GetBalance(), 9'000);
+      EXPECT_EQ(user_to.GetBalance(), 1'000);      
+
+      EXPECT_FALSE(test_trans.Make(user_from, user_to, 8'000));
+      EXPECT_EQ(user_from.GetBalance(), 9'000);
+      EXPECT_EQ(user_to.GetBalance(), 1'000);      
+}
