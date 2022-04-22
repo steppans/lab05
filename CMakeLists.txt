@@ -20,4 +20,14 @@ target_link_libraries(${PROJECT_NAME} banking gtest gtest_main gmock_main)
 
 if(MSVC)
 	set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+	target_compile_options(
+		${PROJECT_NAME} PRIVATE
+		/W4
+	)
+else()
+	target_compile_options(
+		${PROJECT_NAME} PRIVATE
+		-Wall -Wextra -pedantic -Werror
+	)
 endif()
