@@ -16,11 +16,18 @@ jobs:
       - name: Check cmake version
         run : cmake --version
         
+      - name : Prepare environment
+        shell: bash
+        run  : |
+          sudo apt install git
+          git submodule update --init --recursive
+        
       - name: Build system of tests
         run : |
           mkdir cmake && cd cmake
           cmake ..
           make
+          
        
       - name: Run tests
         run : cmake/tests
