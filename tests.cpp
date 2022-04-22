@@ -28,7 +28,7 @@ public:
 TEST(Account, TestMethods){
       MockAccount test_account(113'995, 165'500);
 
-      EXPECT_CALL(test_account, id)
+      EXPECT_CALL(test_account, id())
 	      .Times(1)
 	      .WillOnce(Return(113'995));
 
@@ -77,6 +77,35 @@ TEST(Account, UsualWork){
       
       EXPECT_NO_THROW(test.Lock());
       EXPECT_ANY_THROW(test.Lock());
+}
+
+TEST(Transaction, TestMethods){
+      Account user_from(231, 67'000);
+      Account user_to(456, 35'000);
+      MockTransaction test_transaction;
+      
+      EXPECT_CALL(test_transaction, fee())
+	      .Times(3)
+              .WillOnce(Return(1))
+	      .WillRepeatedly(Return(500));
+
+      EXPECT_CALL(test_transaction, set_fee(_))
+	      .Times(1);
+
+      EXPECT_CALL(test_transaction, Make)
+	      .Times(AtLeast(1));
+
+      test_transaction.fee();
+      test_transaction.set_fee(500);
+      test_transaction.fee();
+
+      // First transaction
+      test_transaction.Make(user_from, user_to, 30'000);
+
+      // Second transaction
+      test_transaction.Make(user_from, user_to, 40'000);
+
+      test_transaction.fee();
 }
 
 TEST(Transaction, UsualWork){
