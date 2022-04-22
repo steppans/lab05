@@ -52,7 +52,7 @@ jobs:
         run : |
           mkdir cmake && cd cmake
           cmake ..
-          cmake --build
+          cmake --build .
           
       - name: Run tests
         run : cmake/Debug/tests.exe
