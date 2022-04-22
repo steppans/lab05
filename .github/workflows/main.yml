@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build_on_linux:
+  Build_on_linux:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,7 +32,7 @@ jobs:
       - name: Run tests
         run : cmake/tests
         
-  build_on_windows:
+  Build_on_windows:
     runs-on: windows-latest
       
     steps:
@@ -52,7 +52,7 @@ jobs:
         run : |
           mkdir cmake && cd cmake
           cmake ..
-          make
+          cmake --build
           
       - name: Run tests
-        run : cmake/tests
+        run : cmake/Debug/tests.exe
