@@ -48,8 +48,9 @@ jobs:
           git --version
           git submodule update --init --recursive
           
-      - name: Build system of tests
-        run : |
+      - name : Build system of tests
+        shell: bash
+        run  : |
           mkdir cmake && cd cmake
           cmake ..
           cmake --build .
