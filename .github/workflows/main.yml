@@ -23,4 +23,4 @@ jobs:
           make
        
       - name: Run tests
-        run : cd cmake && ./tests
+        run : cmake/tests
