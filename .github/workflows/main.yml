@@ -19,7 +19,7 @@ jobs:
       - name : Prepare environment
         shell: bash
         run  : |
-          sudo apt install git
+          git --version
           git submodule update --init --recursive
         
       - name: Build system of tests
@@ -29,5 +29,30 @@ jobs:
           make
           
        
+      - name: Run tests
+        run : cmake/tests
+        
+  build_on_windows:
+    runs-on: windows-latest
+      
+    steps:
+      - name: Git clone my repo
+        uses: actions/checkout@v1
+        
+      - name: Check cmake version
+        run : cmake --version
+        
+      - name : Prepare environment
+        shell: bash
+        run  : |
+          git --version
+          git submodule update --init --recursive
+          
+      - name: Build system of tests
+        run : |
+          mkdir cmake && cd cmake
+          cmake ..
+          make
+          
       - name: Run tests
         run : cmake/tests
