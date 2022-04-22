@@ -1,0 +1,58 @@
+name: Build_Banking_project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Build_on_linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git clone my repo
+        uses: actions/checkout@v1
+      
+      - name: Check cmake version
+        run : cmake --version
+        
+      - name : Prepare environment
+        shell: bash
+        run  : |
+          git --version
+          git submodule update --init --recursive
+        
+      - name: Build system of tests
+        run : |
+          mkdir cmake && cd cmake
+          cmake ..
+          make
+          
+       
+      - name: Run tests
+        run : cmake/tests
+        
+  Build_on_windows:
+    runs-on: windows-latest
+      
+    steps:
+      - name: Git clone my repo
+        uses: actions/checkout@v1
+        
+      - name: Check cmake version
+        run : cmake --version
+        
+      - name : Prepare environment
+        shell: bash
+        run  : |
+          git --version
+          git submodule update --init --recursive
+          
+      - name: Build system of tests
+        run : |
+          mkdir cmake && cd cmake
+          cmake ..
+          cmake --build .
+          
+      - name: Run tests
+        run : cmake/Debug/tests.exe
