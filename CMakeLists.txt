@@ -19,7 +19,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} banking gtest gtest_main gmock_main)
 
 #if(MSVC)
-#set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 	#	target_compile_options(
 	#	${PROJECT_NAME} PRIVATE
