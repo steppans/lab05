@@ -1,11 +1,14 @@
-#Laboratory work 5
+# Laboratory work 5
 
-##Subdirectory of gtests
+## Status of last Deployment
+<br><img src="https://github.com/steppans/lab05/workflows/Build_Banking_project/badge.svg>branch=main"><br>
 
-##CMakeList.txt
+## Subdirectory of gtests
 
-##Transaction
+## CMakeList.txt
 
-##Account
+## Transaction
 
-##Coveralls.io
+## Account
+
+## Coveralls.io
