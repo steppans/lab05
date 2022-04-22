@@ -46,9 +46,6 @@ jobs:
         shell: bash
         run  : |
           git --version
-          cd googletests
-          git checkout release-1.10.0
-          cd ..
           git submodule update --init --recursive
           
       - name : Build system of tests
