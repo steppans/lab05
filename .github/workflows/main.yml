@@ -1,4 +1,4 @@
-name: Build Banking project
+name: Build_Banking_project
 
 on:
   push:
