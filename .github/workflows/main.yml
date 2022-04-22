@@ -1,0 +1,26 @@
+name: Build Banking project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_on_linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git clone my repo
+      - uses: actions/checkout@v1
+      
+      - name: Check cmake version
+        run : cmake --version
+        
+      - name: Build system of tests
+        run : |
+          mkdir cmake && cd cmake
+          cmake ..
+          make
+       
+      - name: Run tests
+        run : cd cmake && ./tests
