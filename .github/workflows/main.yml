@@ -61,7 +61,7 @@ jobs:
       - name: Create lcov.info
         run : |
           cd cmake
-          lcov --capture --directory . --output-file lcov.info --test-name tests
+          lcov --capture "banking" --output-file lcov.info --test-name tests
           
       - name: Coveralls.io
         uses: coverallsapp/github-action@master
