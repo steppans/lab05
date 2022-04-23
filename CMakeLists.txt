@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.12)
 
 project(tests)
-#set(CMAKE_CXX_STANDART 11)
+set(CMAKE_CXX_STANDART 17)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/googletests)
 
@@ -19,16 +19,3 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 
 target_link_libraries(${PROJECT_NAME} banking gtest gtest_main gmock_main)
 
-#if(MSVC)
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-
-	#	target_compile_options(
-	#	${PROJECT_NAME} PRIVATE
-	#	/W4
-	#)
-	#else()
-	#target_compile_options(
-	#	${PROJECT_NAME} PRIVATE
-	#	-Wall -Wextra -pedantic -Werror
-	#)
-	#endif()
