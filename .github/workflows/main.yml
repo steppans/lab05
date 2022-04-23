@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Git clone my repo
         uses: actions/checkout@v1
+      - name: Change CMakeLists.txt  
+        run : echo "target_compile_options(${PROJECT_NAME} PRIVATE --coverage)" >> CMakeLists.txt
       
       - name: Use Node.js 10.x
         uses: actions/setup-node@v1
