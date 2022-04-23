@@ -12,7 +12,7 @@ if(COVERAGE)
         target_compile_options(${PROJECT_NAME} PRIVATE --coverage)
         target_link_libraries(${PROJECT_NAME} PRIVATE banking --coverage)
 else()
-        target_link_libraries(${PROJECT_NAME} PRIVATE banking)
+        target_link_libraries(${PROJECT_NAME} PRIVATE banking -mno-default)
 endif()
 
 add_library(banking STATIC
@@ -25,4 +25,4 @@ target_include_directories(${PROJECT_NAME} PRIVATE
                       ${CMAKE_CURRENT_SOURCE_DIR}/googletests
                       )
 	      
-target_link_libraries(${PROJECT_NAME} PRIVATE gtest gtest_main gmock_main)
+target_link_libraries(${PROJECT_NAME} PRIVATE gtest gtest_main gmock_main -mno-default)
