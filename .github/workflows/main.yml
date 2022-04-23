@@ -13,23 +13,7 @@ jobs:
       - name: Git clone my repo
         uses: actions/checkout@v1
       - name: Change CMakeLists.txt  
-        run : echo "target_compile_options(${PROJECT_NAME} PRIVATE --coverage)" >> CMakeLists.txt
-      
-      - name: Use Node.js 10.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 10.x
-      
-
-      - name: npm install, make test-coverage
-        run: |
-          npm install
-          make test-coverage
-
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}      
+        run : echo "target_compile_options(${PROJECT_NAME} PRIVATE --coverage)" >> CMakeLists.txt      
       
       - name: Check cmake version
         run : cmake --version
@@ -49,4 +33,20 @@ jobs:
        
       - name: Run tests
         run : cmake/tests
+        
+              - name: Use Node.js 10.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+      
+
+      - name: npm install, make test-coverage
+        run: |
+          npm install
+          make test-coverage
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
