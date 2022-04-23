@@ -7,6 +7,9 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/googletests)
 
 add_executable(${PROJECT_NAME} tests.cpp)
 
+target_compile_options(${PROJECT_NAME} PRIVATE --coverage)
+target_link_libraries(${PROJECT_NAME} PRIVATE --coverage)
+
 add_library(banking STATIC
         ${CMAKE_CURRENT_SOURCE_DIR}/banking/Account.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/banking/Transaction.cpp
@@ -18,4 +21,3 @@ target_include_directories(${PROJECT_NAME} PRIVATE
                       )
 
 target_link_libraries(${PROJECT_NAME} banking gtest gtest_main gmock_main)
-
