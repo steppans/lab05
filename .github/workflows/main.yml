@@ -44,6 +44,7 @@ jobs:
         run  : |
           git --version
           git submodule update --init --recursive
+          pip install --user cpp-coveralls
           
       - name: Build system of tests with --coverage
         run : |
