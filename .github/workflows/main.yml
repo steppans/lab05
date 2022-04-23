@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  Build_on_linux:
+  Check_tests_on_linux:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,6 +32,32 @@ jobs:
       - name: Run tests
         run : cmake/tests
         
+  Build_tests_for_Coveralls:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Git clone my repo
+        uses: actions/checkout@v1 
+        
+      - name : Prepare environment
+        shell: bash
+        run  : |
+          git --version
+          git submodule update --init --recursive
+          
+      - name: Build system of tests with --coverage
+        run : |
+          mkdir cmake && cd cmake
+          cmake -DCOVERAGE=1 ..
+          make
+          ./tests
+          
+      - name: Create lcov.info
+        run : |
+          cd cmake
+          coveralls --root . -E ".*gtest.*" -E ".*CMakeFiles.*"
+          lcov -t "banking" -o lcov.info -c -d .
+          
       - name: Use Node.js 10.x
         uses: actions/setup-node@v1
         with:
