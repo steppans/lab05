@@ -1,3 +1,8 @@
+#-------------------------------------
+# Lab05 - connection with Coveralls.io 
+#
+# Copyright (c) by steppans 2022
+
 name: Build_Banking_project
 
 on:
@@ -56,7 +61,6 @@ jobs:
       - name: Create lcov.info
         run : |
           cd cmake
-          coveralls --root . -E ".*gtest.*" -E ".*CMakeFiles.*"
           lcov -t "banking" -o lcov.info -c -d .
           
       - name: Use Node.js 10.x
