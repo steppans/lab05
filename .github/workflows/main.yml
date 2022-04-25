@@ -60,7 +60,7 @@ jobs:
           lcov --capture --directory . --output-file lcov.info --test-name test
           
       - name: Coveralls.io
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@main
         with:
           github-token      : ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov      : ./cmake/lcov.info
