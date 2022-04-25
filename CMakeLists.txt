@@ -21,4 +21,4 @@ add_library(banking STATIC
 target_include_directories(${PROJECT_NAME} PRIVATE
                         ${CMAKE_CURRENT_SOURCE_DIR}/banking)
 
-target_link_libraries(${PROJECT_NAME} banking gtest gtest_main gmock_main) 
+target_link_libraries(${PROJECT_NAME} PRIVATE banking gtest gtest_main gmock_main) 
