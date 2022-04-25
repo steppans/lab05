@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDART 17)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/gtest)
 
-add_executable(${PROJECT_NAME} tests.cpp)
+add_executable(${PROJECT_NAME} test.cpp)
 
 if(COVERAGE)
         target_compile_options(${PROJECT_NAME} PRIVATE --coverage)
