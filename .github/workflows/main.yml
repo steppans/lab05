@@ -17,7 +17,6 @@ jobs:
       - name: CLONE REPO
         uses: actions/checkout@v1
       - name : Prepare environment
-        
         shell: bash
         run  : |
           git --version
