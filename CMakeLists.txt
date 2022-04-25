@@ -4,7 +4,7 @@ SET(COVERAGE OFF CACHE BOOL "Coverage")
 project(tests)
 set(CMAKE_CXX_STANDART 17)
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/googletests)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/gtest)
 
 add_executable(${PROJECT_NAME} tests.cpp)
 
