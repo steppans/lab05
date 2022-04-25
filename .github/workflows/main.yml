@@ -1,22 +1,45 @@
-# This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Build_Banking_project
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: 
+    branches:
       - main
-  
-    
-jobs:
 
-  Coveralls:
+jobs:
+  Check_tests_on_linux:
     runs-on: ubuntu-latest
-    steps: 
-      - name: CLONE REPO
-        uses: actions/checkout@v1
+
+    steps:
+      - name: Git clone my repo
+        uses: actions/checkout@v1      
+      
+      - name: Check cmake version
+        run : cmake --version
+        
+      - name : Prepare environment
+        shell: bash
+        run  : |
+          git --version
+          git submodule update --init --recursive
+        
+      - name: Build system of tests
+        run : |
+          mkdir cmake && cd cmake
+          cmake ..
+          make
+          
+       
+      - name: Run tests
+        run : cmake/tests
+        
+  Build_tests_for_Coveralls:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Git clone my repo
+        uses: actions/checkout@v1 
+        
       - name : Prepare environment
         shell: bash
         run  : |
@@ -26,19 +49,19 @@ jobs:
           
       - name: Build system of tests with --coverage
         run : |
-          mkdir build && cd build
+          mkdir cmake && cd cmake
           cmake -DCOVERAGE=1 ..
           make
           ./tests
           
       - name: Create lcov.info
         run : |
-          cd build
+          cd cmake
           lcov --capture --directory . --output-file lcov.info --test-name tests
           
       - name: Coveralls.io
         uses: coverallsapp/github-action@master
         with:
           github-token      : ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov      : ./build/lcov.info
+          path-to-lcov      : ./cmake/lcov.info
           coveralls-endpoint: https://coveralls.io
