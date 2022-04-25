@@ -1,0 +1,44 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  
+    
+jobs:
+
+  Coveralls:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: CLONE REPO
+        uses: actions/checkout@v1
+      - name : Prepare environment
+        
+        shell: bash
+        run  : |
+          git --version
+          git submodule update --init --recursive
+          sudo apt install lcov
+          
+      - name: Build system of tests with --coverage
+        run : |
+          mkdir build && cd build
+          cmake -DCOVERAGE=1 ..
+          make
+          ./tests
+          
+      - name: Create lcov.info
+        run : |
+          cd build
+          lcov --capture --directory . --output-file lcov.info --test-name tests
+          
+      - name: Coveralls.io
+        uses: coverallsapp/github-action@master
+        with:
+          github-token      : ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov      : ./build/lcov.info
+          coveralls-endpoint: https://coveralls.io
