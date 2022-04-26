@@ -69,4 +69,3 @@ jobs:
           github-token      : ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov      : ./cmake/lcov.info
           coveralls-endpoint: https://coveralls.io
-          base-path         : ./cmake/CMakeFiles/banking.dir/banking
